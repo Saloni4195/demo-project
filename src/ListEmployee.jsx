@@ -13,15 +13,13 @@ export default function ListEmployee() {
     }, [])
 
     function getAllEmployees() {
-        // listEmployees().then((response) => {
-        //     console.log(response.data);
-        //     setEmployees(response.data)
-        // }
-        // ).catch(error => {
-        //     console.error(error);
-        // })
-
-        setEmployees(listEmployees());
+        listEmployees().then((response) => {
+            console.log(response.data?.data?.employees);
+            setEmployees(response.data?.data?.employees);
+        }
+        ).catch(error => {
+            console.error(error);
+        })
     }
 
 
@@ -53,9 +51,9 @@ export default function ListEmployee() {
                         employees.map(employee =>
                             <tr key={employee.id}>
                                 <td>{employee.id}</td>
-                                <td>{employee.firstName}</td>
-                                <td>{employee.lastName}</td>
-                                <td>{employee.email}</td>
+                                <td>{employee.name}</td>
+                                <td>{employee.name}</td>
+                                <td>{employee.department}</td>
                                 <td>
                                     <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
                                 </td>

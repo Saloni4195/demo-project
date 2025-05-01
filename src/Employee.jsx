@@ -12,18 +12,22 @@ export default function Employee() {
     function saveEmployee(e) {
         e.preventDefault();
         console.log("method call");
-        const employee = { firstName, lastName, email }
+        const employee = { 
+            id: 5,
+            name: firstName + " " + lastName,
+            department: "IT"
+         }
         console.log(employee);
-        // createEmployee(employee).then((response) => {
-        //     console.log(response.data);
-        //     navigator('/employees')
-        // }).catch(error => {
-        //     console.error(error);
-        // })
+        createEmployee(employee).then((response) => {
+            console.log(response.data);
+            navigator('/')
+        }).catch(error => {
+            console.error(error);
+        })
 
         // navigator('/employees')
-        createEmployee(employee);
-        navigator('/');
+        // createEmployee(employee);
+        // navigator('/');
     }
 
 
