@@ -8,6 +8,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
-    Logger logger
-            = LoggerFactory.getLogger(EmployeeController.class);
+    Logger logger = LoggerFactory.getLogger(EmployeeController.class);
     private final EmployeeService employeeService;
 
     public EmployeeController(EmployeeService employeeService) {
