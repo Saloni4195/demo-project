@@ -9,7 +9,7 @@ import Employee from './Employee';
 function App() {
   return (
     <>
-     <Header />
+    <Header />
     <BrowserRouter>
   
     <Routes>
