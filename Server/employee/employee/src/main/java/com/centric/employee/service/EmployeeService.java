@@ -29,4 +29,8 @@ public class EmployeeService {
     public List<EmployeeRecord> deleteEmployee(Integer id) {
         return dummyData.removeEmployee(id);
     }
+
+    public List<EmployeeRecord> updateEmployee(Integer id, EmployeeRecord employee) {
+        return dummyData.updateEmployee(id, employee);
+    }
 }

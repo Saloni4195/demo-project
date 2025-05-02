@@ -71,4 +71,14 @@ public class EmployeeController {
         logger.info("delete method");
         return employeeService.deleteEmployee(id);
     }
+
+    @MutationMapping
+    public List<EmployeeRecord> updateEmployee(@Argument Integer id,
+                                               @Argument EmployeeRecord employee) {
+       logger.info("id is" + id);
+       logger.info("emp is" +employee.toString());
+
+        return employeeService.updateEmployee(id, employee);
+
+    }
 }

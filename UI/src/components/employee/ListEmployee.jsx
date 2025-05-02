@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { listEmployees } from "./EmployeeService";
+import { listEmployees, deleteEmployee } from "../../services/EmployeeService";
 
 export default function ListEmployee() {
 
@@ -31,6 +31,15 @@ export default function ListEmployee() {
         navigator(`/edit-employee/${id}`)
     }
 
+    function removeEmployee(id) {
+        console.log(id);
+        deleteEmployee(id).then((response) => {
+            getAllEmployees();
+        }).catch(error => {
+            console.error(error);
+        })
+    }
+
     return (
         <div className='container'>
             <h2 className='text-center'>List of Employees</h2>
@@ -55,7 +64,8 @@ export default function ListEmployee() {
                                 <td>{employee.name}</td>
                                 <td>{employee.department}</td>
                                 <td>
-                                    <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
+                                    <button className='btn btn-info me-2' onClick={() => updateEmployee(employee.id)}>Update</button>
+                                    <button className='btn btn-info' onClick={() => removeEmployee(employee.id)}>Delete</button>
                                 </td>
                             </tr>)
                     }

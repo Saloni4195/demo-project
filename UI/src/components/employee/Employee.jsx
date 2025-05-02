@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { createEmployee } from "./EmployeeService";
-import { useNavigate } from "react-router-dom";
+import { createEmployee, updateEmployee } from "../../services/EmployeeService";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Employee() {
     const navigator = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const { id } = useParams();
 
 
     function saveEmployee(e) {
+        console.log(id);
         e.preventDefault();
         console.log("method call");
         const employee = { 
@@ -18,13 +20,22 @@ export default function Employee() {
             department: "IT"
          }
         console.log(employee);
+        if (id) {
+            
+            updateEmployee(id, employee).then((response) => {
+                console.log(response.data);
+                navigator('/')
+            }).catch(error => {
+                console.error(error);
+            })
+        } else {
         createEmployee(employee).then((response) => {
             console.log(response.data);
             navigator('/')
         }).catch(error => {
             console.error(error);
         })
-
+    }
         // navigator('/employees')
         // createEmployee(employee);
         // navigator('/');

@@ -39,4 +39,10 @@ public class DummyData {
         employeeRecords.remove(employee);
         return employeeRecords;
     }
+
+    public List<EmployeeRecord> updateEmployee(Integer id, EmployeeRecord employee) {
+        employeeRecords.removeIf(emp -> emp.id() == id);
+        employeeRecords.add(new EmployeeRecord(id, employee.name(), employee.department()));
+        return employeeRecords;
+    }
 }
