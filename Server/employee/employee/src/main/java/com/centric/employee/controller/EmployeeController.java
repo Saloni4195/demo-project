@@ -25,11 +25,6 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    //    @GetMapping("/employees/{id}")
-//    @ResponseBody
-//    public List<EmployeeRecord> employeeById(@PathVariable Integer id){
-//        return employeeService.getEmployeeById(id);
-//    }
     @QueryMapping
     public List<EmployeeRecord> employeeById(@Argument Integer id) {
         logger.info("employee by id graphql");
@@ -43,15 +38,6 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
-//    @PostMapping("/addEmployees")
-//    @ResponseBody
-//    public List<EmployeeRecord> addEmployees(@RequestBody List<EmployeeRecord> employees) {
-//
-//        logger.info("save method");
-//        logger.info(employees.toString());
-//        return employeeService.saveEmployee(employees);
-//    }
-
     @MutationMapping
     public List<EmployeeRecord> addEmployees(@Argument List<EmployeeRecord> employees) {
 
@@ -60,12 +46,6 @@ public class EmployeeController {
         return employeeService.saveEmployee(employees);
     }
 
-    //    @DeleteMapping("/remove/employee/{id}")
-//    @ResponseBody
-//    public List<EmployeeRecord> deleteEmployee(@PathVariable Integer id) {
-//        logger.info("delete method");
-//        return employeeService.deleteEmployee(id);
-//    }
     @MutationMapping
     public List<EmployeeRecord> deleteEmployee(@Argument Integer id) {
         logger.info("delete method");
@@ -75,8 +55,6 @@ public class EmployeeController {
     @MutationMapping
     public List<EmployeeRecord> updateEmployee(@Argument Integer id,
                                                @Argument EmployeeRecord employee) {
-       logger.info("id is" + id);
-       logger.info("emp is" +employee.toString());
 
         return employeeService.updateEmployee(id, employee);
 

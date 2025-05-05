@@ -47,7 +47,7 @@ export const updateEmployeeApi = (employeeId, employee) => {
         query: updateEmployeeQuery,
         variables: {
             id: employeeId,
-            employees: [employee]
+            employee
         }
     });
 };
