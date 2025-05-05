@@ -3,21 +3,41 @@ import { listEmployees } from "../services/EmployeeService";
 
 export function useEmployees() {
     const [employees, setEmployees] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-        async function fetchEmployees() {
+        const fetchEmployees = async () => {
+            console.log("useEmployees: fetchEmployees started");
             try {
+                setLoading(true);
+                console.log("useEmployees: setLoading(true)");
                 const response = await listEmployees();
-                setEmployees(response.data?.data?.employees);
-            } catch (error) {
-                setError(error);
-                console.error(error);
+                console.log("useEmployees: Response received from listEmployees:", response);
+                const employeeData = response.data.data.employees; // Access the 'employees' array inside 'response.data.data'
+                console.log("useEmployees: Employee data:", employeeData);
+                setEmployees(employeeData);
+                setLoading(false);
+                console.log("useEmployees: setLoading(false)");
+            } catch (err) {
+                console.error("useEmployees: Error fetching employees:", err);
+                setError(err);
+                setLoading(false);
+                console.log("useEmployees: setLoading(false) due to error");
             }
-        }
+            setRefresh(false);
+        };
 
         fetchEmployees();
-    }, []);
+    }, [refresh]);
 
-    return { employees, error };
+    const handleRefresh = () => {
+        setRefresh(true);
+    };
+
+    console.log("useEmployees: Returning:", { employees, loading, error, setEmployees });
+    return { employees, loading, error, setEmployees, handleRefresh };
 }
+
+export default useEmployees;

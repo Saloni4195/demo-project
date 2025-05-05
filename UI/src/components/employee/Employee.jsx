@@ -14,14 +14,14 @@ export default function Employee() {
         console.log(id);
         e.preventDefault();
         console.log("method call");
-        const employee = { 
+        const employee = {
             id: 5,
             name: firstName + " " + lastName,
             department: "IT"
-         }
+        }
         console.log(employee);
         if (id) {
-            
+
             updateEmployee(id, employee).then((response) => {
                 console.log(response.data);
                 navigator('/')
@@ -29,16 +29,13 @@ export default function Employee() {
                 console.error(error);
             })
         } else {
-        createEmployee(employee).then((response) => {
-            console.log(response.data);
-            navigator('/')
-        }).catch(error => {
-            console.error(error);
-        })
-    }
-        // navigator('/employees')
-        // createEmployee(employee);
-        // navigator('/');
+            createEmployee(employee).then((response) => {
+                console.log(response.data);
+                navigator('/')
+            }).catch(error => {
+                console.error(error);
+            })
+        }
     }
 
 

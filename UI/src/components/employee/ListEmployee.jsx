@@ -1,27 +1,13 @@
-import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
-import { listEmployees, deleteEmployee } from "../../services/EmployeeService";
+import { deleteEmployee } from "../../services/EmployeeService";
+import { useEmployees } from "../../hooks/useEmployees";
+
 
 export default function ListEmployee() {
 
     const navigator = useNavigate();
-
-    const [employees, setEmployees] = useState([]);
-
-    useEffect(() => {
-        getAllEmployees();
-    }, [])
-
-    function getAllEmployees() {
-        listEmployees().then((response) => {
-            console.log(response.data?.data?.employees);
-            setEmployees(response.data?.data?.employees);
-        }
-        ).catch(error => {
-            console.error(error);
-        })
-    }
-
+    const { employees, loading, error, setEmployees, handleRefresh } = useEmployees();
 
     function addNewEmployee() {
         navigator('/add-employee')
@@ -34,11 +20,20 @@ export default function ListEmployee() {
     function removeEmployee(id) {
         console.log(id);
         deleteEmployee(id).then((response) => {
-            getAllEmployees();
+            handleRefresh();
         }).catch(error => {
             console.error(error);
         })
     }
+
+    if (loading) {
+        return <p>Loading employees...</p>;
+    }
+
+    if (error) {
+        return <p>Error loading employees: {error.message}</p>;
+    }
+
 
     return (
         <div className='container'>

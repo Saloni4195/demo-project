@@ -4,7 +4,6 @@ import {
     config,
     employeesQuery,
     addEmployeeQuery,
-    employeesAddQuery,
     deleteEmployeeQuery,
     updateEmployeeQuery
 } from "../api/graphqlConstants";
