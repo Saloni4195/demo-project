@@ -1,44 +1,55 @@
 import axios from "axios"
-import { REST_API_BASE_URL, 
-         config, 
-         employeesQuery, 
-         addEmployeeQuery, 
-         employeesAddQuery, 
-         deleteEmployeeQuery, 
-         updateEmployeeQuery } from "../api/graphqlConstants";
+import {
+    REST_API_BASE_URL,
+    config,
+    employeesQuery,
+    addEmployeeQuery,
+    employeesAddQuery,
+    deleteEmployeeQuery,
+    updateEmployeeQuery
+} from "../api/graphqlConstants";
+
+
+
+// Common function to handle GraphQL API requests
+const callGraphQLApi = (queryOrPayload, variables) => {
+    // If queryOrPayload already contains 'query' key, assume it's the full payload
+    const isFullPayload = typeof queryOrPayload === 'object' && queryOrPayload.query;
+    const payload = isFullPayload
+        ? queryOrPayload
+        : { query: queryOrPayload, variables };
+    return axios.post(REST_API_BASE_URL, payload, config);
+};
 
 
 
 export const fetchEmployeesApi = () => {
-    return axios.post(REST_API_BASE_URL, employeesQuery, config);
+    return callGraphQLApi(employeesQuery);
 };
 
 
 export const createEmployeeApi = (employee) => {
-    return axios.post(REST_API_BASE_URL, {
+    return callGraphQLApi({
         query: addEmployeeQuery,
-        variables: {
-            employees: [employee]
-        }
-    }, config);
-}
+        variables: { employees: [employee] }
+    });
+};
 
 
 export const deleteEmployeeApi = (id) => {
-    return axios.post(REST_API_BASE_URL, {
+    return callGraphQLApi({
         query: deleteEmployeeQuery,
-        variables: {
-            id: id
-        }
-    }, config);
-}
+        variables: { id }
+    });
+};
 
 export const updateEmployeeApi = (employeeId, employee) => {
-    return axios.post(REST_API_BASE_URL, {
+    return callGraphQLApi({
         query: updateEmployeeQuery,
         variables: {
             id: employeeId,
-            employee: employee
+            employees: [employee]
         }
-    }, config);
-}
+    });
+};
+
